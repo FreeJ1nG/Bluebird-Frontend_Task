@@ -17,6 +17,7 @@ export default function Home({
   vehicleTypes: VehicleType[];
 }) {
   const {
+    id: selectedUniqueId,
     vehicleId: selectedVehicleId,
     vehicleType: selectedVehicleType,
     setVehicleId,
@@ -75,7 +76,10 @@ export default function Home({
         {selectedVehicleId && selectedVehicleType && vehicleDetail && (
           <>
             <Box mt={8} />
-            <VehicleDetailSection vehicleDetail={vehicleDetail} />
+            <VehicleDetailSection
+              selectedUniqueId={selectedUniqueId}
+              vehicleDetail={vehicleDetail}
+            />
           </>
         )}
       </Stack>

@@ -5,6 +5,7 @@ import {
   ThunkAction,
   type ThunkDispatch,
 } from '@reduxjs/toolkit';
+import { persistStore } from 'redux-persist';
 
 import api from '@/common/services/api';
 import reducer from '@/modules/redux/reducer';
@@ -13,12 +14,18 @@ export const configureAppStore = () => {
   const store = configureStore({
     reducer,
     middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(api.middleware),
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+        },
+      }).concat(api.middleware),
   });
   return store;
 };
 
 const store = configureAppStore();
+
+const persistor = persistStore(store);
 
 export type AppStore = typeof store;
 export type RootState = ReturnType<AppStore['getState']>;
@@ -31,4 +38,4 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   Action<string>
 >;
 
-export default store;
+export { store, persistor };
