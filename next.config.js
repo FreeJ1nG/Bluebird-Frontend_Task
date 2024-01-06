@@ -6,7 +6,7 @@ const nextConfig = {
     dirs: ['src'],
   },
   images: {
-    domains: [],
+    domains: ['www.bluebirdgroup.com'],
   },
 };
 

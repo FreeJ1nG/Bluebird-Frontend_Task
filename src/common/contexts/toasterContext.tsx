@@ -10,8 +10,8 @@ import {
 import { AlertColor } from '@mui/material/Alert';
 import { SnackbarOrigin } from '@mui/material/Snackbar';
 
-import Alert from '@/common/components/atoms/Mui/Alert';
-import Snackbar from '@/common/components/atoms/Mui/Snackbar';
+import Alert from '@/common/components/mui/Alert';
+import Snackbar from '@/common/components/mui/Snackbar';
 
 export interface SnackbarMessage {
   message: string | undefined;
