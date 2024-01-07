@@ -4,7 +4,15 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, setup your environment variables, you can see the example in `.env.sample` and copy the content to `.env.local`, this sets up the `BASE_URL` for the API.
 
-Then, run the development server:
+Before moving on, make sure you have Node installed in your system, preferably the LTS version of Node.
+
+Then, install the dependencies:
+
+```bash
+npm install
+```
+
+Finally, run the development server:
 
 ```bash
 npm run dev
