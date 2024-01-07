@@ -33,11 +33,26 @@ After Pressing the book button, the site will redirect you to this page, showing
 The same thing happens when you add a certain vehicle to your wishlist
 ![My Wishlist Page](/public/wishlist.png)
 
-# Testing
+## Testing
 
 Most components excluding `Navbar.tsx` has coverage of more than 50%, I wasn't able to make a unit test for navbar since this app uses Redux + RTK Query, and I was not able to figure out how to setup the mock environments in time.
 
 ![Testing Coverage](/public/coverage_result.png)
+
+## Server Side Rendering and Client Side Rendering
+
+The homepage prefetches the vehicles from the api to mantain better SEO, but most of the other API calls are made in the client-side using RTK Query, RTK Query caches and stores the data fetched in the store, only refetching when a certain tag is invalidated.
+
+Unfortunately, I was unable to finish data fetching using RTK Query on the server side in time, so any server side data fetching is done using the `fetch` API from javascript, which is a native function and has no caching whatsoever.
+
+## What could be done better
+
+For future reference, some things that could be improved are:
+
+- Data fetching with RTK Query on the server side
+- Setting up redux environment for unit testing
+- Responsive design implementation for the application
+- PWA implementation or AMP pages (though i think PWA is a better option)
 
 ## Atomic Design System
 
