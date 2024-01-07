@@ -12,17 +12,36 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Integration with backend
+## App Preview
 
-This boilerplate rely on [RTK Query](https://redux-toolkit.js.org/rtk-query/overview) for any sort of api calls, rather than using `react-query` hooks. I find RTK Query much cleaner and easier to handle since we can declare the typing of response/request and easily make rules for refetching and much more.
+In the first interaction, you will be prompted to select one of the 4 categories
 
-The RTK Query file is stored on `src/features/`, with the generic types declared on each of the folders there.
+![Homepage Image](/public/homepage.png)
 
-To make a new feature, create a new folder in `features/`. For example, we want to create integration for a simple blog feature, make a new folder `features/blog/`, the inside of the folder will generally contain 2 files, `api.ts` and `type.d.ts`, follow the example in `src/features/auth/` folder to see example.
+After selecting a certain category, you will again be prompted to select a certain vehicle ride
+![Homepage Selected Category](/public/homepage_selected_category.png)
+
+After selecting a certain ride, the site will then show the details of that ride, alongside some Call To Action buttons to share, save to wishlist, and book a certain vehicle
+![Vehicle Detail](/public/vehicle_detail.png)
+
+You can also select specific vehicles from the navigation bar
+![Vehicle Select](/public/select.png)
+
+After Pressing the book button, the site will redirect you to this page, showing all the booking's you've made
+![My Bookings Page](/public/mybookings.png)
+
+The same thing happens when you add a certain vehicle to your wishlist
+![My Wishlist Page](/public/wishlist.png)
+
+# Testing
+
+Most components excluding `Navbar.tsx` has coverage of more than 50%, I wasn't able to make a unit test for navbar since this app uses Redux + RTK Query, and I was not able to figure out how to setup the mock environments in time.
+
+![Testing Coverage](/public/coverage_result.png)
 
 ## Atomic Design System
 
-This boilerplate follow the rules of [Atomic Design System](https://atomicdesign.bradfrost.com/chapter-2/)
+This project follow the rules of [Atomic Design System](https://atomicdesign.bradfrost.com/chapter-2/)
 
 The components folder contain 4 subfolders:
 
