@@ -25,6 +25,7 @@ const config: Config = {
     '/src/common/hooks/',
     '/src/common/routes/',
     '/src/common/services/',
+    '/src/common/utils/',
     '/src/features/',
   ],
 
@@ -34,6 +35,7 @@ const config: Config = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@/pages/(.*)$': '<rootDir>/pages/$1',
+    '^@/nextRouterMock$': '<rootDir>/__mocks__/nextRouterMock',
   },
 
   // The glob patterns Jest uses to detect test files

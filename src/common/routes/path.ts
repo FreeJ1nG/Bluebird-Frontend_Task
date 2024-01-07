@@ -10,7 +10,6 @@ const ROOTS_DASHBOARD = '/';
 
 export const PATH_DASHBOARD = {
   root: ROOTS_DASHBOARD,
-  example: {
-    page: path(ROOTS_DASHBOARD, 'example/page'),
-  },
+  myBookings: path(ROOTS_DASHBOARD, 'my-bookings'),
+  wishlist: path(ROOTS_DASHBOARD, 'wishlist'),
 };

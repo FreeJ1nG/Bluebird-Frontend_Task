@@ -39,8 +39,7 @@ export function VehicleContextProvider({ children }: ChildrenProps) {
     const { vehicleId: newVehicleId, vehicleType: newVehicleType } =
       getVehicleIdAndVehicleType(id);
 
-    if (newVehicleId === '') setVehicleId(null);
-    else setVehicleId(parseInt(newVehicleId, 10));
+    setVehicleId(newVehicleId);
 
     if (newVehicleType === '') setVehicleType(null);
     else setVehicleType(newVehicleType);

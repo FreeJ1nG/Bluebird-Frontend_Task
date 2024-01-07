@@ -1,5 +1,3 @@
-import { useCallback, useMemo } from 'react';
-
 import { Box, Stack } from '@/common/components/atoms';
 import {
   VehicleCategorySelection,
@@ -16,73 +14,21 @@ export default function Home({
   vehicles: Vehicle[];
   vehicleTypes: VehicleType[];
 }) {
-  const {
-    id: selectedUniqueId,
-    vehicleId: selectedVehicleId,
-    vehicleType: selectedVehicleType,
-    setVehicleId,
-    setVehicleType,
-  } = useVehicleContext();
-
-  const handleVehicleClick = useCallback(
-    (vehicleId: number) => () => {
-      if (!setVehicleId) return;
-      if (!setVehicleType) return;
-      setVehicleType(null);
-      if (selectedVehicleId === vehicleId) {
-        setVehicleId(null);
-      } else {
-        setVehicleId(vehicleId);
-      }
-    },
-    [selectedVehicleId, setVehicleId, setVehicleType],
-  );
-
-  const handleVehicleTypeClick = useCallback(
-    (vehicleType: string) => () => {
-      if (!setVehicleType) return;
-      setVehicleType(vehicleType);
-    },
-    [setVehicleType],
-  );
-
-  const vehicleDetail = useMemo(() => {
-    const vehicleType = vehicleTypes.find(
-      ({ category_id }) => category_id === selectedVehicleId,
-    );
-    if (!vehicleType) return undefined;
-    const carDetail = vehicleType?.car_type.find(
-      ({ vehicle }) => vehicle === selectedVehicleType,
-    );
-    if (!carDetail) return undefined;
-    return carDetail;
-  }, [vehicleTypes, selectedVehicleId, selectedVehicleType]);
+  const { vehicleId: selectedVehicleId, vehicleType: selectedVehicleType } =
+    useVehicleContext();
 
   return (
-    <Stack alignItems="center">
-      <Stack mt={4} alignItems="center" maxWidth={1000}>
-        <VehicleCategorySelection
-          vehicles={vehicles}
-          selectedVehicleId={selectedVehicleId}
-          onClickWithId={handleVehicleClick}
-        />
-        {selectedVehicleId && !selectedVehicleType && (
-          <VehicleTypeSelection
-            vehicleTypes={vehicleTypes}
-            selectedVehicleId={selectedVehicleId}
-            onClickWithVehicleType={handleVehicleTypeClick}
-          />
-        )}
-        {selectedVehicleId && selectedVehicleType && vehicleDetail && (
-          <>
-            <Box mt={8} />
-            <VehicleDetailSection
-              selectedUniqueId={selectedUniqueId}
-              vehicleDetail={vehicleDetail}
-            />
-          </>
-        )}
-      </Stack>
+    <Stack>
+      <VehicleCategorySelection vehicles={vehicles} />
+      {selectedVehicleId && !selectedVehicleType && (
+        <VehicleTypeSelection vehicleTypes={vehicleTypes} />
+      )}
+      {selectedVehicleId && selectedVehicleType && (
+        <>
+          <Box mt={8} />
+          <VehicleDetailSection vehicleTypes={vehicleTypes} />
+        </>
+      )}
     </Stack>
   );
 }

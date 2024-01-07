@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 
@@ -9,10 +9,10 @@ import { useVehicleContext } from '@/common/contexts/vehicleContext';
 import { PATH_DASHBOARD } from '@/common/routes/path';
 import { getVehicleDetailFromId } from '@/common/utils/helpers/vehicles';
 import { useGetVehiclesQuery } from '@/features/vehicles/api';
-import { selectBookings } from '@/features/vehicles/selectors/getBookings';
+import { selectWishlist } from '@/features/vehicles/selectors/getBookings';
 import { VehicleDetail } from '@/modules/types/models';
 
-export default function MyBookingsPage() {
+export default function WishlistPage() {
   const router = useRouter();
   const { setVehicle } = useVehicleContext();
 
@@ -27,26 +27,16 @@ export default function MyBookingsPage() {
     }),
   });
 
-  const bookings = useSelector(selectBookings);
-  const sortedBookings = getVehicleDetailFromId(
-    [...bookings].sort((a, b) => a.timestamp - b.timestamp),
+  const wishlist = useSelector(selectWishlist);
+  const sortedWishlist = getVehicleDetailFromId(
+    [...wishlist].sort((a, b) => a.timestamp - b.timestamp),
     vehicleTypes,
   );
 
-  const totalPrice = useMemo(
-    () =>
-      sortedBookings.reduce((acc, cur) => {
-        if (!cur?.price) return acc;
-        const priceString = cur.price.replace(/\D/g, '');
-        return acc + parseInt(priceString, 10);
-      }, 0),
-    [sortedBookings],
-  );
-
-  const handleBookingCardClick = useCallback(
-    (booking: VehicleDetail & { id: string; timestamp: number }) => () => {
+  const handleVehicleClick = useCallback(
+    (vehicle: VehicleDetail & { id: string; timestamp: number }) => () => {
       if (!setVehicle) return;
-      setVehicle(booking.id);
+      setVehicle(vehicle.id);
       router.push(PATH_DASHBOARD.root);
     },
     [router, setVehicle],
@@ -57,28 +47,19 @@ export default function MyBookingsPage() {
       <VehicleCategorySelection vehicles={vehicles} isLoading={isLoading} />
       <Stack mt={4}>
         <Typography variant="h5" mb={2}>
-          My Bookings
+          My Wishlist
         </Typography>
         <Stack gap={3}>
-          {sortedBookings?.map(
-            (booking) =>
-              booking && (
+          {sortedWishlist?.map(
+            (vehicle) =>
+              vehicle && (
                 <RemoveableVehicleCard
-                  key={booking.id}
-                  onClick={handleBookingCardClick(booking)}
-                  vehicle={booking}
+                  key={vehicle.id}
+                  onClick={handleVehicleClick(vehicle)}
+                  vehicle={vehicle}
                 />
               ),
           )}
-        </Stack>
-        <Stack alignItems="center" mt={4}>
-          <Typography variant="h5">
-            Total Price:{' '}
-            {Intl.NumberFormat('id-ID', {
-              style: 'currency',
-              currency: 'IDR',
-            }).format(totalPrice)}
-          </Typography>
         </Stack>
       </Stack>
     </Stack>

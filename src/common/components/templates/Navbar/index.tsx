@@ -54,13 +54,22 @@ export default function Navbar() {
     [router],
   );
 
+  const handleRedirectToWishlist = useCallback(() => {
+    router.push(PATH_DASHBOARD.wishlist);
+  }, [router]);
+
+  const handleRedirectToMyBookings = useCallback(() => {
+    router.push(PATH_DASHBOARD.myBookings);
+  }, [router]);
+
   const handleSelectChange = useCallback(
     (newValue: SingleValue<OptionProps>) => {
       if (newValue && setVehicle) {
         setVehicle(newValue.value);
+        router.push(PATH_DASHBOARD.root);
       }
     },
-    [setVehicle],
+    [router, setVehicle],
   );
 
   return (
@@ -82,8 +91,18 @@ export default function Navbar() {
           width={112}
           height={32}
         />
-        <Button data-testid="navbar-wishlist-button">Wishlist</Button>
-        <Button data-testid="navbar-mybook-button">MyBook</Button>
+        <Button
+          data-testid="navbar-wishlist-button"
+          onClick={handleRedirectToWishlist}
+        >
+          Wishlist
+        </Button>
+        <Button
+          data-testid="navbar-mybook-button"
+          onClick={handleRedirectToMyBookings}
+        >
+          MyBook
+        </Button>
       </Stack>
       <LoadingComponent
         data-testid="navbar-select-loader"

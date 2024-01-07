@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface VehiclesSliceState {
-  bookings: { id: string; timestamp: Date }[];
-  wishlist: { id: string; timestamp: Date }[];
+  bookings: { id: string; timestamp: number }[];
+  wishlist: { id: string; timestamp: number }[];
 }
 
 const initialState: VehiclesSliceState = {
@@ -21,7 +21,9 @@ const vehiclesSlice = createSlice({
       state.wishlist.push(action.payload);
     },
     wishlistDeleted(state, action) {
-      delete state.wishlist[action.payload];
+      state.wishlist = state.wishlist.filter(
+        (item) => item.id !== action.payload,
+      );
     },
   },
 });

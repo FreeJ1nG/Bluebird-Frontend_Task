@@ -20,7 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@/nextRouterMock": ["./__mocks__/nextRouterMock"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

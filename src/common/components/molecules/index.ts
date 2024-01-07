@@ -1,3 +1,4 @@
 import ClickableCard from './Card/ClickableCard';
+import RemoveableVehicleCard from './Card/RemovableVehicleCard';
 
-export { ClickableCard };
+export { ClickableCard, RemoveableVehicleCard };
